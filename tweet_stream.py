@@ -1,18 +1,12 @@
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
-from pymongo import MongoClient
 import ast
 import json
 from tokens import ckey, csecret, atoken, asecret
-from elasticsearch import Elasticsearch
 import time
 
 
-es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
-
-client = MongoClient()
-col = client.local.epl_tweets
 
 # consumer key, consumer secret, access token, access secret.
 
@@ -42,8 +36,7 @@ class listener(StreamListener):
         data = json.loads(data)
         try:
             print data['text']
-            # col.insert_one(data)
-            # es.index(index='jtn-index', doc_type='tweets', body=data)
+
         except:
             pass
         return (True)
